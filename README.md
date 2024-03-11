@@ -9,14 +9,14 @@ In the future, we will merge this branch into the [llm](https://github.com/aliba
 
 ## Project Structure
 
-The structure of this project basically follows that of [llm branch](https://github.com/alibaba/FederatedScope/tree/llm/federatedscope/llm) of FederatedScope, with the following branches being relevant to this project:
+The structure of this project basically follows [llm](https://github.com/alibaba/FederatedScope/tree/llm/federatedscope/llm) of FederatedScope, with the following branches being relevant to this project:
 
 ```python
 .
 ├── federatedscope
 │   ├── core                     # Federated learning backend modules
 │   │   ├── trainers            
-│   │   │   ├── trainer.py       # The strategies' implement
+│   │   │   ├── trainer.py       # The strategies' implementation
 │   │   │   ├── ...                          
 │   ├── llm                      # Federated fine-tuning LLMs modules 
 │   │   ├── baseline             # Scripts for LLMs
@@ -37,7 +37,7 @@ The structure of this project basically follows that of [llm branch](https://git
 
 ## Installation
 
-The installation of FedMeZO is similar to minimal FederatedScope-LLM (see [here](https://github.com/alibaba/FederatedScope/tree/llm) for details), with recommended installation setting as follow:
+The installation of FedMeZO is similar to FederatedScope-LLM (see [here](https://github.com/alibaba/FederatedScope/tree/llm) for details), with recommended installation setting as follow:
 ```python
 # Create virtual environments with conda
 conda create -n fedmezo python=3.9
@@ -66,7 +66,7 @@ pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f 
 
 ## Model and Data Preparation
 
-1. To run experiments on [LLaMA-3B](https://huggingface.co/openlm-research/open_llama_3b_v2) or other LLMs, you can manually modify the `YOUR_MODEL_HERE` in `./federatedscope/llm/dataloader/dataloader.py` and `./federatedscope/llm/model/model_builder.py`
+1. To run experiments on [LLaMA-3B](https://huggingface.co/openlm-research/open_llama_3b_v2) or other LLMs, you can manually modify `YOUR_MODEL_HERE` in `./federatedscope/llm/dataloader/dataloader.py` and `./federatedscope/llm/model/model_builder.py`
 
 ```python
 # ./federatedscope/llm/dataloader/dataloader.py
@@ -78,6 +78,7 @@ tokenizer = AutoTokenizer.from_pretrained(
     padding_side="right",
     use_fast=False,
     )
+... ...
 
 # ./federatedscope/llm/model/model_builder.py
 ... ...
@@ -98,7 +99,7 @@ elif dataset_name.lower() == 'alpaca':
 
 ## Running Examples
 
-We provide several example scripts to conduct the experiments. The basic configurations can be adjusted according to the FederatedScope-LLM [guidance document](https://federatedscope.io/docs/llm/). Additionally, there is a unique configuration `train.train_strategy` in FedMeZO framework, that defines the training strategy. This includes four strategies: `'frozen'`, which uses a static learning rate; `'random'`, which sets the learning rate randomly each round; `'round-wise'`, which employs a dynamic strategy based on the difference in loss per round; `'five-round'`, which uses a dynamic strategy based on the average loss difference every five rounds; and `'model-diff'`, which applies a dynamic strategy based on the difference in the amount of parameter updates per round. For more detailed strategy settings, please refer to our [paper](https://arxiv.org/abs/2402.05926).
+We provide several example scripts to conduct the experiments. The basic configurations can be adjusted according to the FederatedScope-LLM [guidance document](https://federatedscope.io/docs/llm/). Additionally, there is a unique configuration `train.train_strategy` in FedMeZO framework, that defines the training strategy. This includes four strategies: `'frozen'`, which uses a static learning rate; `'random'`, which sets the learning rate randomly each round; `'round-wise'`, which employs a dynamic strategy based on the difference in loss per round; `'five-round'`, which uses a dynamic strategy based on the average loss difference every five rounds; and `'model-diff'`, which applies a dynamic strategy based on the difference in parameter's update per round. For more detailed strategy settings, please refer to our [paper](https://arxiv.org/abs/2402.05926).
 ```
 ...
 train:
@@ -151,6 +152,9 @@ python federatedscope/main.py --cfg federatedscope/llm/baseline/frozen/code/code
 
 4. **Dynamic FedMeZO** on `Alpaca` with `IID-Splitter` by **strategy** `'random'` / `'round-wise'` / `'five-round'` / `'model-diff'`
 ```python
+# 'frozen' strategy
+python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_frozen.yaml
+
 # 'random' strategy
 python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_random.yaml
 
