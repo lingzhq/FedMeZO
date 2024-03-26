@@ -1,15 +1,11 @@
 # FedMeZO
-This branch contains the official implementation for the work **“On the convergence of Zeroth-Order Federated Tuning for Large Language Models”**. See more details in our [paper](https://arxiv.org/abs/2402.05926).
+This anonymous repository contains the official implementation for the work **“On the convergence of Zeroth-Order Federated Tuning for Large Language Models”**.
 
 > The confluence of Federated Learning (FL) and Large Language Models (LLMs) is ushering in a new era in privacy-preserving natural language processing. However, the intensive memory requirements for fine-tuning LLMs pose significant challenges, especially when deploying on clients with limited computational resources. To circumvent this, we explore the novel integration of Memory-efficient Zeroth-Order Optimization within a federated setting, a synergy we term as FedMeZO. Our study is the first to examine the theoretical underpinnings of FedMeZO in the context of LLMs, tackling key questions regarding the influence of large parameter spaces on optimization behavior, the establishment of convergence properties, and the identification of critical parameters for convergence to inform personalized federated strategies. Our extensive empirical evidence supports the theory, showing that FedMeZO not only converges faster than traditional first-order methods such as FedAvg but also significantly reduces GPU memory usage during training to levels comparable to those during inference. Moreover, the proposed personalized FL strategy that is built upon the theoretical insights to customize the client-wise learning rate can effectively accelerate loss reduction. We hope our work can help to bridge theoretical and practical aspects of federated fine-tuning for LLMs, thereby stimulating further advancements and research in this area.
 
 The purpose of this implementation is to provide an empirical support for our theoretical analysis.
 
-In the future, we will merge this branch into the [llm](https://github.com/alibaba/FederatedScope/tree/llm) branch of FederatedScope.
-
 ## Project Structure
-
-The structure of this project basically follows [llm](https://github.com/alibaba/FederatedScope/tree/llm/federatedscope/llm) of FederatedScope, with the following branches being relevant to this project:
 
 ```python
 .
@@ -37,7 +33,6 @@ The structure of this project basically follows [llm](https://github.com/alibaba
 
 ## Installation
 
-The installation of FedMeZO is similar to FederatedScope-LLM (see [here](https://github.com/alibaba/FederatedScope/tree/llm) for details), with recommended installation setting as follow:
 ```python
 # Create virtual environments with conda
 conda create -n fedmezo python=3.9
@@ -99,7 +94,7 @@ elif dataset_name.lower() == 'alpaca':
 
 ## Running Examples
 
-We provide several example scripts to conduct the experiments. The basic configurations can be adjusted according to the FederatedScope-LLM [guidance document](https://federatedscope.io/docs/llm/). Additionally, there is a unique configuration `train.train_strategy` in FedMeZO framework, that defines the training strategy. This includes four strategies: `'frozen'`, which uses a static learning rate; `'random'`, which sets the learning rate randomly each round; `'round-wise'`, which employs a dynamic strategy based on the difference in loss per round; `'five-round'`, which uses a dynamic strategy based on the average loss difference every five rounds; and `'model-diff'`, which applies a dynamic strategy based on the difference in parameter's update per round. For more detailed strategy settings, please refer to our [paper](https://arxiv.org/abs/2402.05926).
+We provide several example scripts to conduct the experiments. There is a unique configuration `train.train_strategy` in FedMeZO framework, that defines the training strategy. This includes four strategies: `'frozen'`, which uses a static learning rate; `'random'`, which sets the learning rate randomly each round; `'round-wise'`, which employs a dynamic strategy based on the difference in loss per round; `'five-round'`, which uses a dynamic strategy based on the average loss difference every five rounds; and `'model-diff'`, which applies a dynamic strategy based on the difference in parameter's update per round. For more detailed strategy settings, please refer to our paper.
 ```
 ...
 train:
@@ -166,16 +161,4 @@ python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_f
 
 # 'model-diff' strategy
 python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_model-diff.yaml
-```
-
-## License
-
-This project adopts the Apache-2.0 License. If the implementations and/or our paper were useful to you, please consider citing this [work](https://arxiv.org/abs/2402.05926):
-```
-@article{ling2024convergence,
-  title={On the Convergence of Zeroth-Order Federated Tuning in Large Language Models},
-  author={Zhenqing Ling and Daoyuan Chen and Liuyi Yao and Yaliang Li and Ying Shen},
-  journal={arXiv preprint arXiv:2402.05926},
-  year={2024}
-}
 ```
