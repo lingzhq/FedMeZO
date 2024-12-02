@@ -1,5 +1,5 @@
 # FedMeZO
-This anonymous repository contains the official implementation for the work **“On the convergence of Zeroth-Order Federated Tuning for Large Language Models”**.
+This repository contains the official implementation for the work **“On the convergence of Zeroth-Order Federated Tuning for Large Language Models”**, accepted by *KDD'2024 ([paper](https://dl.acm.org/doi/10.1145/3637528.3671865))*.
 
 > The confluence of Federated Learning (FL) and Large Language Models (LLMs) is ushering in a new era in privacy-preserving natural language processing. However, the intensive memory requirements for fine-tuning LLMs pose significant challenges, especially when deploying on clients with limited computational resources. To circumvent this, we explore the novel integration of Memory-efficient Zeroth-Order Optimization within a federated setting, a synergy we term as FedMeZO. Our study is the first to examine the theoretical underpinnings of FedMeZO in the context of LLMs, tackling key questions regarding the influence of large parameter spaces on optimization behavior, the establishment of convergence properties, and the identification of critical parameters for convergence to inform personalized federated strategies. Our extensive empirical evidence supports the theory, showing that FedMeZO not only converges faster than traditional first-order methods such as FedAvg but also significantly reduces GPU memory usage during training to levels comparable to those during inference. Moreover, the proposed personalized FL strategy that is built upon the theoretical insights to customize the client-wise learning rate can effectively accelerate loss reduction. We hope our work can help to bridge theoretical and practical aspects of federated fine-tuning for LLMs, thereby stimulating further advancements and research in this area.
 
@@ -161,4 +161,16 @@ python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_f
 
 # 'model-diff' strategy
 python federatedscope/main.py --cfg federatedscope/llm/baseline/dynamic/alpaca_model-diff.yaml
+```
+
+## References
+If you find our work useful for your research or development, please kindly cite the following [paper](https://dl.acm.org/doi/10.1145/3637528.3671865).
+```
+@inproceedings{ling2024convergence,
+  title={On the convergence of zeroth-order federated tuning for large language models},
+  author={Ling, Zhenqing and Chen, Daoyuan and Yao, Liuyi and Li, Yaliang and Shen, Ying},
+  booktitle={Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
+  pages={1827--1838},
+  year={2024}
+}
 ```
